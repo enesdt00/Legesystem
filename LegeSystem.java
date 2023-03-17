@@ -72,7 +72,12 @@ public class LegeSystem {
                         String[] kolonner=linje.split(",");
                         int legemiddelNummer=Integer.parseInt(kolonner[0]);
                         String LegesNavn=kolonner[1];
+                        int PasientID=Integer.parseInt(kolonner[2]);
+                        String ReseptType=kolonner[3];
+
+
                         
+
 
 
 
