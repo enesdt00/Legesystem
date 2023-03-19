@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class LegeSystem {
+public  class LegeSystem {
     Liste<Pasient> pasientListe=new IndeksertListe<Pasient>();
     Liste<Legemiddel>legemiddelListe=new IndeksertListe<Legemiddel>();
     Liste<Lege>LegeListe=new Prioritetskoe<Lege>();
@@ -56,7 +56,32 @@ public class LegeSystem {
         }
 
     public static void main(String[] args) {
+        Liste<Pasient> pasientListe=new IndeksertListe<Pasient>();
+        Liste<Legemiddel>legemiddelListe=new IndeksertListe<Legemiddel>();
+        Liste<Lege>LegeListe=new Prioritetskoe<Lege>(); 
+        Liste<Resept>reseptListe = new Stabel<Resept>();
+       Scanner sc = new Scanner(System.in);
         
-       
+       String input = "";
+
+       while(!input.equals("quit")){
+                if(input.equals("Skrive ut en fullstendig oversikt over pasienter, leger, legemidler og resepter")){
+                    System.out.println(pasientListe);
+                    System.out.println(legemiddelListe);
+                    System.out.println(LegeListe);
+                    System.out.println(reseptListe);
+
+                }
+
+                else if(input.equals("Opprette og legge til nye elementer i systemet")){
+                    
+                }
+
+       }
+
     
-}}
+}
+
+
+
+}
