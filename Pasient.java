@@ -15,7 +15,7 @@ public class Pasient {
 
     }
     public String toString(){
-        return "PasientID: "+ PasientID; 
+        return "PasientID: "+ PasientID +" "+navn+" "+fodselsnummer; 
     }
     
 }
