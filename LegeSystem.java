@@ -2,11 +2,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public  class LegeSystem {
-    Liste<Pasient> pasientListe=new IndeksertListe<Pasient>();
+public class LegeSystem {
+    IndeksertListe<Pasient> pasientListe=new IndeksertListe<Pasient>();
+    IndeksertListe<Legemiddel>legemiddelListe=new IndeksertListe<Legemiddel>();
+    Liste<Lege>LegeListe=new Prioritetskoe<Lege>(); 
+    Liste<Resept>reseptListe = new Stabel<Resept>();
+    /*Liste<Pasient> pasientListe=new IndeksertListe<Pasient>();
     Liste<Legemiddel>legemiddelListe=new IndeksertListe<Legemiddel>();
     Liste<Lege>LegeListe=new Prioritetskoe<Lege>();
-
+   /* */
     public void hentFile(){
         try{
             File myObj=new File("legedata.txt");
@@ -56,16 +60,15 @@ public  class LegeSystem {
         }
 
     public static void main(String[] args) {
-        Liste<Pasient> pasientListe=new IndeksertListe<Pasient>();
-        Liste<Legemiddel>legemiddelListe=new IndeksertListe<Legemiddel>();
-        Liste<Lege>LegeListe=new Prioritetskoe<Lege>(); 
-        Liste<Resept>reseptListe = new Stabel<Resept>();
-       Scanner sc = new Scanner(System.in);
         
-       String input = "";
+       /*  
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Hva vil du ?");
+        String input =sc.nextLine();
 
        while(!input.equals("quit")){
                 if(input.equals("Skrive ut en fullstendig oversikt over pasienter, leger, legemidler og resepter")){
+                    input=sc.nextLine();
                     System.out.println(pasientListe);
                     System.out.println(legemiddelListe);
                     System.out.println(LegeListe);
@@ -78,10 +81,47 @@ public  class LegeSystem {
                 }
 
        }
+        */
 
+        
     
 }
 
+    public void genel(){
+         
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Hva vil du ?");
+        String input =sc.nextLine();
+
+       while(!input.equals("quit")){
+                if(input.equals("Skrive ut en fullstendig oversikt over pasienter, leger, legemidler og resepter")){
+                    input=sc.nextLine();
+                    System.out.println(pasientListe);
+                    System.out.println(legemiddelListe);
+                    System.out.println(LegeListe);
+                    System.out.println(reseptListe);
+
+                }
+
+                else if(input.equals("Opprette og legge til nye elementer i systemet")){
+                    
+                }
+
+       }
+    }
+    public void brukeResept(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Hvilken pasient vil du se resept for ?");
+
+        for(int i=0;i<=pasientListe.stoerrelse();i++){
+            System.out.println(i+": "+ pasientListe.hent(i));
+        }
+
+        
+
+
+    }
 
 
 }
