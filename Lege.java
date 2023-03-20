@@ -12,7 +12,7 @@ public class Lege implements Comparable<Lege> {
     }
 
     public String toString(){
-        return "legens navn: "+this.legensNavn;
+        return "legens navn: "+legensNavn;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Lege implements Comparable<Lege> {
   
 
     public Resept skrivHvitResept(Legemiddel legemiddel, Pasient pasient, int reit,Lege legensNavn) throws UlovligUtskrift {
-        if(legemiddel instanceof Narkotisk ){
+        if(legemiddel instanceof Narkotisk && legensNavn instanceof Lege ){
             throw new UlovligUtskrift(legensNavn, legemiddel);
         }
        Resept hvitresept = new hviteResepter(legemiddel,pasient,reit,legensNavn);
@@ -34,7 +34,7 @@ public class Lege implements Comparable<Lege> {
     }
 
     public Resept skrivMilResept(Legemiddel legemiddel, Pasient pasientID,Lege legensNavn) throws UlovligUtskrift {
-        if(legemiddel instanceof Narkotisk ){
+        if(legemiddel instanceof Narkotisk  && legensNavn instanceof Lege ){
             throw new UlovligUtskrift(legensNavn, legemiddel);
         }
         Resept milResept=new MilResept(legemiddel, pasientID, legensNavn);
@@ -44,7 +44,7 @@ public class Lege implements Comparable<Lege> {
 
 
     public Resept skrivPResept(Legemiddel legemiddel, Pasient pasient, int reit,Lege legensNavn) throws UlovligUtskrift {
-        if(legemiddel instanceof Narkotisk ){
+        if(legemiddel instanceof Narkotisk && legensNavn instanceof Lege ){
             throw new UlovligUtskrift(legensNavn, legemiddel);
         }
         Resept pResept = new pResepter(legemiddel,  pasient, reit,legensNavn);
@@ -53,7 +53,7 @@ public class Lege implements Comparable<Lege> {
     }
 
     public Resept skrivBlaaResept(Legemiddel legemiddel, Pasient pasientID,int reit,Lege legensNavn) throws UlovligUtskrift{
-        if(legemiddel instanceof Narkotisk ){
+        if(legemiddel instanceof Narkotisk && legensNavn instanceof Lege ){
             throw new UlovligUtskrift(legensNavn, legemiddel);
         }
         Resept blaaResept=new BlaaResept(legemiddel, pasientID, reit, legensNavn);

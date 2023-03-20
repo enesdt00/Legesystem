@@ -1,10 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Iterator;
+
 import java.util.Scanner;
 
-public class LegeSystem extends Lenkeliste {
-    private static final String String = null;
+public class LegeSystem  {
+   
     IndeksertListe<Pasient> pasientListe=new IndeksertListe<Pasient>();
     IndeksertListe<Legemiddel> legemiddelListe=new IndeksertListe<Legemiddel>();
     IndeksertListe<Lege>LegeListe=new IndeksertListe<Lege>();
@@ -28,13 +28,13 @@ public class LegeSystem extends Lenkeliste {
                   Pasient pasient=new Pasient(navn, foedselsnummer);
                  
                   pasientListe.leggTil(pasient);
-                  linje=myleser.nextLine();
+                 if(myleser.hasNextLine()) linje=myleser.nextLine();
                  
                  
                   //LEGEMIDLERS LISTE
                 } 
                // System.out.println("sjekke Pasienter");
-            }else if(linje.contains("# Legemidler")){
+            } if(linje.contains("# Legemidler (navn,type,pris,virkestoff,[styrke])")){
                 linje=myleser.nextLine();
                     while(myleser.hasNextLine() && !linje.startsWith("#")){
                         linje=linje.strip();
@@ -42,36 +42,46 @@ public class LegeSystem extends Lenkeliste {
                         String navn=kolonner[0];
                         String Legemiddeltype=kolonner[1];
                        int legemiddelPris= Integer.parseInt(kolonner[2]);// det bytter variabel fra String til double
-                        double legemiddelVirkestofet= Double.parseDouble(kolonner[3]);
+                      
+                       double legemiddelVirkestofet;                       
+                       if(kolonner.length>=4 && kolonner[3]!=null){
+                       legemiddelVirkestofet= Double.parseDouble(kolonner[3]);}
+                       else{
+                      legemiddelVirkestofet=  0.0;
+                       }
+                       
                         if(Legemiddeltype.toLowerCase().equals("vanlig")){
+                           
                             Legemiddel legemiddel=new Vanlig(navn,legemiddelPris,legemiddelVirkestofet);
+                            
                             legemiddelListe.leggTil(legemiddel);
-                                };
-
-                        
-                        if(Legemiddeltype.toLowerCase().equals("narkotisk")  || Legemiddeltype.toLowerCase().equals("vanedannende") ){
+                            linje=myleser.nextLine();
+                                }
+                        else if(Legemiddeltype.toLowerCase().equals("narkotisk")  || Legemiddeltype.toLowerCase().equals("vanedannende") ){
                         int LegemiddelStyrke=Integer.parseInt(kolonner[4]);
                         if(Legemiddeltype.toLowerCase().equals("narkotisk")){
                         Legemiddel legemiddel=new Narkotisk(navn,legemiddelPris,legemiddelVirkestofet,LegemiddelStyrke);
                         legemiddelListe.leggTil(legemiddel);
-                      }if(Legemiddeltype.toLowerCase().equals("vannedanne")){
+                        linje=myleser.nextLine();
+                      }else if(Legemiddeltype.toLowerCase().equals("vanedannende")){
                          Legemiddel legemiddel=new Vanedannende(navn,legemiddelPris,legemiddelVirkestofet,LegemiddelStyrke);
                          legemiddelListe.leggTil(legemiddel);
+                         linje=myleser.nextLine();
                         } 
                     }
 
+                    
 
-
-                    }//System.out.println("sjekke legemidler");
+                    }
                 }//LEGELISTE
-                else if(linje.contains("# Leger")){
+                 if(linje.contains("# Leger")){
                     linje=myleser.nextLine();
                     while(myleser.hasNextLine() && !linje.startsWith("#")){
                         linje=linje.strip();
                         String[] kolonner=linje.split(",");
                         String navn=kolonner[0];
                         String legeKontrolnummer=kolonner[1];
-                        if(legeKontrolnummer!="0"){//fant spesialister
+                        if(!legeKontrolnummer.equals("0")){//fant spesialister
                             Lege spesialister=new Spesialist(navn, legeKontrolnummer);
                             LegeListe.leggTil(spesialister);
                         }else{
@@ -82,9 +92,9 @@ public class LegeSystem extends Lenkeliste {
 
                         } linje=myleser.nextLine();
 
-                     }//System.out.println("sjekke legeliste");
+                     }
                     }
-                     else if(linje.contains("# Resepter")){
+                /* if(linje.contains("# Resepter")){
                         linje=myleser.nextLine();
                         while(myleser.hasNextLine() && !linje.startsWith("#")){
                         linje=linje.strip();
@@ -124,8 +134,8 @@ public class LegeSystem extends Lenkeliste {
                             milResept=LegeListe.hent(teller).skrivMilResept(legemiddelListe.hent(legemiddelNummer), pasientListe.hent(PasientID),  LegeListe.hent(teller));
                             ReseptListe.leggTil(milResept);}}
                         }
-                        linje=myleser.nextLine();}//System.out.println("sjekke Resepter");
-                }
+                        linje=myleser.nextLine();}
+                }*/    
                 linje=myleser.nextLine(); }
             myleser.close();
         } catch (FileNotFoundException e) {
@@ -168,10 +178,10 @@ public class LegeSystem extends Lenkeliste {
         }                             
           
         }
-        public void hentResepter(){
+        /*public void hentResepter(){
             for(int teller=0; teller<ReseptListe.storrelsen; teller++){
               System.out.println(ReseptListe.hent(teller));
-            }}
+            }}*/
 
     public static void main(String[] args) throws UgyldigListeindeks, UlovligUtskrift {
         
@@ -179,10 +189,10 @@ public class LegeSystem extends Lenkeliste {
         String brukeren;
         LegeSystem legesystem=new LegeSystem();
             legesystem.hentFile("legedata.txt");
-            legesystem.hentPasienter();
-            legesystem.hentLege();
-           legesystem.hentLegemidler();
-            //legesystem.hentResepter();
+           legesystem.hentPasienter();
+           legesystem.hentLege();
+          legesystem.hentLegemidler();
+           // legesystem.hentResepter();
 
       /* do{
       
