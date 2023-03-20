@@ -11,7 +11,7 @@ public class Pasient {
         this.fodselsnummer=fodselsnummer;
         PasientID=teller;
         teller++;
-        PasientReseptListe=new Stabel<Resept>();
+      PasientReseptListe=new Stabel<Resept>();
 
     }
     public String toString(){

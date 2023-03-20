@@ -30,11 +30,13 @@ public class LegeSystem extends Lenkeliste {
                   pasientListe.leggTil(pasient);
                   linje=myleser.nextLine();
                  
+                 
                   //LEGEMIDLERS LISTE
                 } 
                // System.out.println("sjekke Pasienter");
             }else if(linje.contains("# Legemidler")){
-                    while(!linje.startsWith("#")){
+                linje=myleser.nextLine();
+                    while(myleser.hasNextLine() && !linje.startsWith("#")){
                         linje=linje.strip();
                         String[] kolonner=linje.split(",");
                         String navn=kolonner[0];
@@ -55,7 +57,7 @@ public class LegeSystem extends Lenkeliste {
                       }if(Legemiddeltype.toLowerCase().equals("vannedanne")){
                          Legemiddel legemiddel=new Vanedannende(navn,legemiddelPris,legemiddelVirkestofet,LegemiddelStyrke);
                          legemiddelListe.leggTil(legemiddel);
-                        }
+                        } 
                     }
 
 
@@ -64,7 +66,7 @@ public class LegeSystem extends Lenkeliste {
                 }//LEGELISTE
                 else if(linje.contains("# Leger")){
                     linje=myleser.nextLine();
-                    while(!linje.startsWith("#")){
+                    while(myleser.hasNextLine() && !linje.startsWith("#")){
                         linje=linje.strip();
                         String[] kolonner=linje.split(",");
                         String navn=kolonner[0];
@@ -78,13 +80,13 @@ public class LegeSystem extends Lenkeliste {
 
 
 
-                        }
+                        } linje=myleser.nextLine();
 
                      }//System.out.println("sjekke legeliste");
                     }
-                     else if(linje.contains("# Resepter") && myleser.hasNextLine()){
+                     else if(linje.contains("# Resepter")){
                         linje=myleser.nextLine();
-                        while(!linje.startsWith("#")){
+                        while(myleser.hasNextLine() && !linje.startsWith("#")){
                         linje=linje.strip();
                         String[] kolonner=linje.split(",");
                         int legemiddelNummer=Integer.parseInt(kolonner[0]); // skal peke legemiddelListe
@@ -122,7 +124,7 @@ public class LegeSystem extends Lenkeliste {
                             milResept=LegeListe.hent(teller).skrivMilResept(legemiddelListe.hent(legemiddelNummer), pasientListe.hent(PasientID),  LegeListe.hent(teller));
                             ReseptListe.leggTil(milResept);}}
                         }
-                    }//System.out.println("sjekke Resepter");
+                        linje=myleser.nextLine();}//System.out.println("sjekke Resepter");
                 }
                 linje=myleser.nextLine(); }
             myleser.close();
@@ -179,17 +181,17 @@ public class LegeSystem extends Lenkeliste {
             legesystem.hentFile("legedata.txt");
             legesystem.hentPasienter();
             legesystem.hentLege();
-            legesystem.hentLegemidler();
-            legesystem.hentResepter();
+           legesystem.hentLegemidler();
+            //legesystem.hentResepter();
 
-       do{
+      /* do{
       
             System.out.println("Trykk \"q\" for å avslutte programmet ");
             System.out.print("Trykk \"c\" for å forsette programmet ");
 
            
             brukeren=brukerenKommet.next();
-        } while(!brukeren.equals("q"));
+        } while(!brukeren.equals("q"));*/
         
 
       
