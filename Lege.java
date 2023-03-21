@@ -34,7 +34,7 @@ public class Lege implements Comparable<Lege> {
     }
 
     public Resept skrivMilResept(Legemiddel legemiddel, Pasient pasientID,Lege legensNavn) throws UlovligUtskrift {
-        if(legemiddel instanceof Narkotisk  && legensNavn instanceof Lege ){
+        if(legemiddel instanceof Narkotisk ){
             throw new UlovligUtskrift(legensNavn, legemiddel);
         }
         Resept milResept=new MilResept(legemiddel, pasientID, legensNavn);
