@@ -81,8 +81,8 @@ public class LegeSystem  {
                         String[] kolonner=linje.split(",");
                         String navn=kolonner[0];
                         String legeKontrolnummer=kolonner[1];
-                        if(!legeKontrolnummer.equals("0")){//fant spesialister
-                            Spesialist spesialister=new Spesialist(navn, legeKontrolnummer);
+                        if(legeKontrolnummer!="0"){//fant spesialister
+                            Lege spesialister=new Spesialist(navn, legeKontrolnummer);
                             LegeListe.leggTil(spesialister);
                         }else{
                             Lege vanligLege=new Lege(navn);
@@ -96,7 +96,7 @@ public class LegeSystem  {
                     }
                 if(linje.contains("# Resepter")){
                         linje=myleser.nextLine();
-                        while((myleser.hasNextLine() || myleser!=null) && !linje.startsWith("#") ){
+                        while(!linje.startsWith("#")){
                         linje=linje.strip();
                         String[] kolonner=linje.split(",");
                         int legemiddelNummer=Integer.parseInt(kolonner[0]); // skal peke legemiddelListe
@@ -134,14 +134,10 @@ public class LegeSystem  {
                             milResept=LegeListe.hent(teller).skrivMilResept(legemiddelListe.hent(legemiddelNummer), pasientListe.hent(PasientID),  LegeListe.hent(teller));
                             ReseptListe.leggTil(milResept);}}
                         }
-                        if((myleser.hasNextLine()) || myleser!=null) linje=myleser.nextLine();
-                       
-                    
-                    }
-                } 
-                 
-                //linje=myleser.nextLine(); }
-            }myleser.close();
+                    }//System.out.println("sjekke Resepter");
+                }
+                linje=myleser.nextLine(); }
+            myleser.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -228,9 +224,7 @@ public class LegeSystem  {
           legesystem.hentLegemidler();
            legesystem.hentResepter();
 
-           
-
-      /* do{
+       do{
       
             System.out.println("Trykk \"q\" for å avslutte programmet ");
             System.out.print("Trykk \"c\" for å forsette programmet ");
