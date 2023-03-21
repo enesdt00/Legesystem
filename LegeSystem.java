@@ -82,7 +82,7 @@ public class LegeSystem  {
                         String navn=kolonner[0];
                         String legeKontrolnummer=kolonner[1];
                         if(!legeKontrolnummer.equals("0")){//fant spesialister
-                            Lege spesialister=new Spesialist(navn, legeKontrolnummer);
+                            Spesialist spesialister=new Spesialist(navn, legeKontrolnummer);
                             LegeListe.leggTil(spesialister);
                         }else{
                             Lege vanligLege=new Lege(navn);
@@ -94,9 +94,9 @@ public class LegeSystem  {
 
                      }
                     }
-                /* if(linje.contains("# Resepter")){
+                if(linje.contains("# Resepter")){
                         linje=myleser.nextLine();
-                        while(myleser.hasNextLine() && !linje.startsWith("#")){
+                        while((myleser.hasNextLine() || myleser!=null) && !linje.startsWith("#") ){
                         linje=linje.strip();
                         String[] kolonner=linje.split(",");
                         int legemiddelNummer=Integer.parseInt(kolonner[0]); // skal peke legemiddelListe
@@ -134,10 +134,14 @@ public class LegeSystem  {
                             milResept=LegeListe.hent(teller).skrivMilResept(legemiddelListe.hent(legemiddelNummer), pasientListe.hent(PasientID),  LegeListe.hent(teller));
                             ReseptListe.leggTil(milResept);}}
                         }
-                        linje=myleser.nextLine();}
-                }*/    
-                linje=myleser.nextLine(); }
-            myleser.close();
+                        if((myleser.hasNextLine()) || myleser!=null) linje=myleser.nextLine();
+                       
+                    
+                    }
+                } 
+                 
+                //linje=myleser.nextLine(); }
+            }myleser.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -178,10 +182,40 @@ public class LegeSystem  {
         }                             
           
         }
-        /*public void hentResepter(){
+        public void hentResepter(){
             for(int teller=0; teller<ReseptListe.storrelsen; teller++){
               System.out.println(ReseptListe.hent(teller));
-            }}*/
+            }}
+
+        public void BrukerResept(){
+            Scanner brukersInput= new Scanner(System.in);
+            System.out.println("Hvilken pasient vil du se resepter for?");
+            for(int teller=0; teller<pasientListe.storrelsen; teller++){
+            System.out.println(teller+": "+pasientListe.hent(teller));}
+            int brukerns=brukersInput.nextInt();
+            System.out.print("Valgt pasient: ");
+            System.out.println(pasientListe.hent(brukerns));
+            System.out.println("Hvilken resept vil du bruke?");
+            for(int teller=0; teller< ReseptListe.storrelsen; teller++){
+                 System.out.println(teller+" "+ReseptListe.hent(teller).legemiddel1.navn+" "+ReseptListe.hent(teller).reit);
+                    }
+                    int brukerensResept= brukersInput.nextInt();
+                    System.out.println();
+                    if(ReseptListe.hent(brukerensResept).reit==0){
+                        System.out.println("Kunne ikke bruke resept paa "+ReseptListe.hent(brukerensResept).legemiddel1.navn);
+                   }
+                   else{
+                    ReseptListe.hent(brukerensResept).reit=ReseptListe.hent(brukerensResept).reit-1;
+                     System.out.println("Brukte resept paa "+ReseptListe.hent(brukerensResept).legemiddel1.navn+" "+" Antall gjenvaerende reit:" + ReseptListe.hent(brukerensResept).reit );
+                   }
+            }
+            
+           
+            
+
+            
+           
+        
 
     public static void main(String[] args) throws UgyldigListeindeks, UlovligUtskrift {
         
@@ -192,7 +226,9 @@ public class LegeSystem  {
            legesystem.hentPasienter();
            legesystem.hentLege();
           legesystem.hentLegemidler();
-           // legesystem.hentResepter();
+           legesystem.hentResepter();
+
+           
 
       /* do{
       
