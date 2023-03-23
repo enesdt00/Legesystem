@@ -1,6 +1,6 @@
 public class Lege implements Comparable<Lege> {
     protected String legensNavn;
-    private IndeksertListe<Resept> utskrevneResepter;
+    public IndeksertListe<Resept> utskrevneResepter;
     String kontrolKode;
 
     public Lege(String legensNavn){
@@ -27,7 +27,7 @@ public class Lege implements Comparable<Lege> {
   
 
     public Resept skrivHvitResept(Legemiddel legemiddel, Pasient pasient, int reit,Lege legensNavn) throws UlovligUtskrift {
-        if(legemiddel instanceof Narkotisk && legensNavn.kontrolKode.equals("0") ){
+        if(legemiddel instanceof Narkotisk && !(legensNavn instanceof Spesialist) ){
             throw new UlovligUtskrift(legensNavn, legemiddel);
         }
        Resept hvitresept = new hviteResepter(legemiddel,pasient,reit,legensNavn);
@@ -37,7 +37,7 @@ public class Lege implements Comparable<Lege> {
     }
 
     public Resept skrivMilResept(Legemiddel legemiddel, Pasient pasientID,Lege legensNavn) throws UlovligUtskrift {
-        if(legemiddel instanceof Narkotisk && legensNavn.kontrolKode.equals("0") ){
+        if(legemiddel instanceof Narkotisk && !(legensNavn instanceof Spesialist) ){
             throw new UlovligUtskrift(legensNavn, legemiddel);
         }
         Resept milResept=new MilResept(legemiddel, pasientID, legensNavn);
@@ -47,7 +47,7 @@ public class Lege implements Comparable<Lege> {
 
 
     public Resept skrivPResept(Legemiddel legemiddel, Pasient pasient, int reit,Lege legensNavn) throws UlovligUtskrift {
-        if(legemiddel instanceof Narkotisk && legensNavn.kontrolKode.equals("0") ){
+        if(legemiddel instanceof Narkotisk && !(legensNavn instanceof Spesialist) ){
             throw new UlovligUtskrift(legensNavn, legemiddel);
         }
         Resept pResept = new pResepter(legemiddel,  pasient, reit,legensNavn);
