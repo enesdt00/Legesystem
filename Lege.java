@@ -42,6 +42,7 @@ public class Lege implements Comparable<Lege> {
         }
         Resept milResept=new MilResept(legemiddel, pasientID, legensNavn);
         utskrevneResepter.leggTil(milResept);
+        pasientID.PasientReseptListe.leggTil(milResept);
         return milResept;
     }
 
@@ -52,6 +53,7 @@ public class Lege implements Comparable<Lege> {
         }
         Resept pResept = new pResepter(legemiddel,  pasient, reit,legensNavn);
         utskrevneResepter.leggTil(pResept);
+        pasient.PasientReseptListe.leggTil(pResept);
         return pResept;
     }
 
@@ -61,6 +63,7 @@ public class Lege implements Comparable<Lege> {
         }
         Resept blaaResept=new BlaaResept(legemiddel, pasientID, reit, legensNavn);
         utskrevneResepter.leggTil(blaaResept);
+        pasientID.PasientReseptListe.leggTil(blaaResept);
         return blaaResept;
     
     }

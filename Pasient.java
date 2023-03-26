@@ -4,18 +4,18 @@ public class Pasient {
     String navn, fodselsnummer;
     public final int PasientID;
     private static int teller=0;
-    Stabel<Resept> PasientReseptListe;
+    IndeksertListe<Resept> PasientReseptListe;
 
     public Pasient(String navn, String fodselsnummer){
         this.navn=navn;
         this.fodselsnummer=fodselsnummer;
         PasientID=teller;
         teller++;
-      PasientReseptListe=new Stabel<Resept>();
+      PasientReseptListe=new IndeksertListe<Resept>();
 
     }
     public String toString(){
-        return "PasientID: "+ PasientID +" "+navn+" "+fodselsnummer; 
+        return  PasientID +" "+navn+" "+fodselsnummer; 
     }
     
 }
