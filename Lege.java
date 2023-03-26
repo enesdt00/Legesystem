@@ -26,13 +26,13 @@ public class Lege implements Comparable<Lege> {
 
   
 
-    public Resept skrivHvitResept(Legemiddel legemiddel, Pasient pasient, int reit,Lege legensNavn) throws UlovligUtskrift {
+    public Resept skrivHvitResept(Legemiddel legemiddel, Pasient pasientID, int reit,Lege legensNavn) throws UlovligUtskrift {
         if(legemiddel instanceof Narkotisk && !(legensNavn instanceof Spesialist) ){
             throw new UlovligUtskrift(legensNavn, legemiddel);
         }
-       Resept hvitresept = new hviteResepter(legemiddel,pasient,reit,legensNavn);
+       Resept hvitresept = new hviteResepter(legemiddel,pasientID,reit,legensNavn);
         utskrevneResepter.leggTil(hvitresept);
-        pasient.PasientReseptListe.leggTil(hvitresept);
+        pasientID.PasientReseptListe.leggTil(hvitresept);
         return hvitresept;
     }
 

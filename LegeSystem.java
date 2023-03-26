@@ -361,8 +361,8 @@ public class LegeSystem  {
         legesystem.statistikk();
 
       
-            System.out.println("Trykk \"q\" for å avslutte programmet ");
-            System.out.print("Trykk \"c\" for å forsette programmet ");
+            System.out.println("Trykk \"q\" for aa avslutte programmet ");
+            System.out.print("Trykk \"c\" for aa forsette programmet ");
 
            
             brukeren=brukerenKommet.next();
