@@ -81,8 +81,8 @@ public class LegeSystem  {
                         String[] kolonner=linje.split(",");
                         String navn=kolonner[0];
                         String legeKontrolnummer=kolonner[1];
-                        if(legeKontrolnummer!="0"){//fant spesialister
-                            Lege spesialister=new Spesialist(navn, legeKontrolnummer);
+                        if(!legeKontrolnummer.equals("0")){//fant spesialister
+                            Spesialist spesialister=new Spesialist(navn, legeKontrolnummer);
                             LegeListe.leggTil(spesialister);
                         }else{
                             Lege vanligLege=new Lege(navn);
@@ -96,7 +96,7 @@ public class LegeSystem  {
                     }
                 if(linje.contains("# Resepter")){
                         linje=myleser.nextLine();
-                        while(!linje.startsWith("#")){
+                        while(myleser.hasNextLine() && !linje.startsWith("#")){
                         linje=linje.strip();
                         String[] kolonner=linje.split(",");
                         int legemiddelNummer=Integer.parseInt(kolonner[0]); // skal peke legemiddelListe
@@ -134,8 +134,8 @@ public class LegeSystem  {
                             milResept=LegeListe.hent(teller).skrivMilResept(legemiddelListe.hent(legemiddelNummer), pasientListe.hent(PasientID),  LegeListe.hent(teller));
                             ReseptListe.leggTil(milResept);}}
                         }
-                    }//System.out.println("sjekke Resepter");
-                }
+                        linje=myleser.nextLine();}
+                }   
                 linje=myleser.nextLine(); }
             myleser.close();
         } catch (FileNotFoundException e) {
@@ -183,36 +183,6 @@ public class LegeSystem  {
               System.out.println(ReseptListe.hent(teller));
             }}
 
-        public void BrukerResept(){
-            Scanner brukersInput= new Scanner(System.in);
-            System.out.println("Hvilken pasient vil du se resepter for?");
-            for(int teller=0; teller<pasientListe.storrelsen; teller++){
-            System.out.println(teller+": "+pasientListe.hent(teller));}
-            int brukerns=brukersInput.nextInt();
-            System.out.print("Valgt pasient: ");
-            System.out.println(pasientListe.hent(brukerns));
-            System.out.println("Hvilken resept vil du bruke?");
-            for(int teller=0; teller< ReseptListe.storrelsen; teller++){
-                 System.out.println(teller+" "+ReseptListe.hent(teller).legemiddel1.navn+" "+ReseptListe.hent(teller).reit);
-                    }
-                    int brukerensResept= brukersInput.nextInt();
-                    System.out.println();
-                    if(ReseptListe.hent(brukerensResept).reit==0){
-                        System.out.println("Kunne ikke bruke resept paa "+ReseptListe.hent(brukerensResept).legemiddel1.navn);
-                   }
-                   else{
-                    ReseptListe.hent(brukerensResept).reit=ReseptListe.hent(brukerensResept).reit-1;
-                     System.out.println("Brukte resept paa "+ReseptListe.hent(brukerensResept).legemiddel1.navn+" "+" Antall gjenvaerende reit:" + ReseptListe.hent(brukerensResept).reit );
-                   }
-            }
-            
-           
-            
-
-            
-           
-        
-
     public static void main(String[] args) throws UgyldigListeindeks, UlovligUtskrift {
         
         Scanner brukerenKommet= new Scanner(System.in);// ta kommando fra brukeren.
@@ -224,7 +194,7 @@ public class LegeSystem  {
           legesystem.hentLegemidler();
            legesystem.hentResepter();
 
-       do{
+      /* do{
       
             System.out.println("Trykk \"q\" for å avslutte programmet ");
             System.out.print("Trykk \"c\" for å forsette programmet ");
@@ -237,4 +207,12 @@ public class LegeSystem  {
       
     
 }
-    }
+   public void brukeResept(){
+
+            Scanner sc = new Scanner(System.in);
+
+            System.out.println("Hvilken pasient vil du se resepter for?");
+            
+   }
+
+}

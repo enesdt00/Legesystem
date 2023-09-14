@@ -7,7 +7,7 @@ public class Spesialist extends Lege implements Godkjenningsfritak{
     }
 @Override 
  public String hentKontrollkode(){
-    return Kontrollkode;
+    return this.Kontrollkode;
  }
 
     public String toString(){
